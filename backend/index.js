@@ -31,6 +31,7 @@ app.use("/api/admin", adminRouter);
 app.use("/api/album", albumRouter);
 app.use("/api/stat", statRouter);
 app.use("/api/auth", authRouter);
+console.log("index.js")
 
 app.use((err,req,res,next)=>{
     res.status(500).json({message:process.env.NODE_ENV==="PRODUCTION"?"Internal Server Error":err.message})
