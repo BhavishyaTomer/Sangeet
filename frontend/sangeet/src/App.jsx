@@ -6,11 +6,17 @@ import Home from './pages/home';
 import Callback from './pages/call-back';
 import MainLayout from './pages/MainLayout';
 import ChatRoom from './pages/ChatRoom';
+import { useFetchSongs } from './customhooks/fetchSongs';
 
 
 
 const App = () => {
   return (
+    <>
+    {
+      useFetchSongs()
+      // console.log("hitting")
+    }
   <Routes>
 
  <Route path='/sso-callback' element={<AuthenticateWithRedirectCallback signUpForceRedirectUrl={'/call-back'}/>} />
@@ -23,6 +29,7 @@ const App = () => {
  </Route>
 
   </Routes>
+  </>
   )
 }
 

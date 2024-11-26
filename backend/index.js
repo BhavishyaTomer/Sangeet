@@ -14,8 +14,12 @@ import fileUpload from 'express-fileupload';
 dotenv.config();
 const app=express()
 const __dirname=path.resolve()
+app.use(cors({
+    origin: 'http://localhost:5174', // Your frontend's URL
+    credentials: true,
+    allowedHeaders: ['Authorization', 'Content-Type'], // Explicitly allow headers
+}));
 
-app.use(cors())
 app.use(express.json());
 app.use(fileUpload(
     {
@@ -23,11 +27,16 @@ app.use(fileUpload(
         tempFileDir:path.join(__dirname,"temp"),createParentPath:true
     }
 ))
-app.use(clerkMiddleware())
+app.use(clerkMiddleware());
+app.use((req, res, next) => {
+    console.log("Clerk middleware output:", req.auth);
+    next();
+});
+
 
 app.use("/api/user", userRouter);
 app.use("/api/admin", adminRouter);
-// app.use("/api/sangeet", SongRoutes);
+app.use("/api/sangeet", songRouter);
 app.use("/api/album", albumRouter);
 app.use("/api/stat", statRouter);
 app.use("/api/auth", authRouter);

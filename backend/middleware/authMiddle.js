@@ -1,6 +1,7 @@
 import { clerkClient } from '@clerk/express'
 
 export const protectedRoute = async (req, res, next) => {
+    console.log("auth is",req.auth)
     if (!req.auth.userId) {
         res.status(401).json({ message: "Unauthirsed" })
         return

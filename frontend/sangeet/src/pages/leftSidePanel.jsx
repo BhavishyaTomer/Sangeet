@@ -5,8 +5,10 @@ import { ScrollArea } from '@radix-ui/react-scroll-area'
 import { HomeIcon, Library, MessageCircleCode } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PlaylistSkeleton from './LoadingSkeleton'
 
 const LeftSidePanel = () => {
+    const isLoading=true;
     return (
         <div className='h-full flex flex-col gap-2'>
             {/* Navigation menu */}
@@ -41,7 +43,19 @@ const LeftSidePanel = () => {
                         <span className='hidden md:inline'>Playlists</span>
                     </div>
                 </div>
-                <ScrollArea></ScrollArea>
+                <ScrollArea className='h-calc[(100vh-300px)]'>
+                  <div className='space-y-2'>
+                   {
+                    isLoading?(
+                        <>
+                        <PlaylistSkeleton />
+                        </>
+                    ):(<span>Some Loading</span>)
+                   }
+
+                  </div>
+
+                </ScrollArea>
             </div>
         </div >
     )
